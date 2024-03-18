@@ -1,3 +1,3 @@
 export default function Home() {
-  return <main>YT E-Commerce</main>;
+  return <div>YT E-Commerce</div>;
 }
