@@ -3,6 +3,7 @@
 import { Rating } from "@mui/material";
 import { useCallback, useState } from "react";
 import SetColor from "./SetColor";
+import SetQuantity from "./SetQuantity";
 
 interface ProductDetailsProps {
   product: any;
@@ -41,11 +42,27 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
     price: product.price,
   });
 
-  console.log("cartProduct", cartProduct);
-
   const productRating =
     product.reviews.reduce((acc: number, item: any) => item.rating + acc, 0) /
     product.reviews.length;
+
+  const handleQuantityIncrease = useCallback(() => {
+    if (cartProduct.quantity === 99) {
+      return;
+    }
+    setCartProduct((prev) => {
+      return { ...prev, quantity: prev.quantity + 1 };
+    });
+  }, [cartProduct]);
+
+  const handleQuantityDecrease = useCallback(() => {
+    if (cartProduct.quantity === 1) {
+      return;
+    }
+    setCartProduct((prev) => {
+      return { ...prev, quantity: prev.quantity - 1 };
+    });
+  }, [cartProduct]);
 
   const handleColorSelect = useCallback(
     (value: SelectedImgType) => {
@@ -88,7 +105,11 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
           handleColorSelect={handleColorSelect}
         />
         <Horizontal />
-        <div>quantidade</div>
+        <SetQuantity
+          cartProduct={cartProduct}
+          handleQuantityIncrease={handleQuantityIncrease}
+          handleQuantityDecrease={handleQuantityDecrease}
+        />
         <Horizontal />
         <div>adicionar ao carrinho</div>
       </div>
