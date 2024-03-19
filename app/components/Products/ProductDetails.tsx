@@ -4,7 +4,7 @@ import { Rating } from "@mui/material";
 import { useCallback, useState } from "react";
 import SetColor from "./SetColor";
 import SetQuantity from "./SetQuantity";
-import Button from "./Button";
+import Button from "../Button";
 import ProductImage from "./ProductImage";
 
 interface ProductDetailsProps {
