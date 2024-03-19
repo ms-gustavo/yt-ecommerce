@@ -6,6 +6,7 @@ import {
   useEffect,
   useState,
 } from "react";
+import { toast } from "react-hot-toast";
 
 type CartContextType = {
   cartTotalQty: number;
@@ -32,21 +33,25 @@ export const CartContextProvider = (props: Props) => {
     setCartProducts(cProducts);
   }, []);
 
-  const handleAddProductToCart = useCallback((product: CartProductType) => {
-    setCartProducts((prev) => {
-      let updatedCart;
+  const handleAddProductToCart = useCallback(
+    (product: CartProductType) => {
+      setCartProducts((prev) => {
+        let updatedCart;
 
-      if (prev) {
-        updatedCart = [...prev, product];
-      } else {
-        updatedCart = [product];
-      }
+        if (prev) {
+          updatedCart = [...prev, product];
+        } else {
+          updatedCart = [product];
+        }
 
-      localStorage.setItem("eShopCartItens", JSON.stringify(updatedCart));
+        localStorage.setItem("eShopCartItens", JSON.stringify(updatedCart));
 
-      return updatedCart;
-    });
-  }, []);
+        return updatedCart;
+      });
+      toast.success("Produto adicionado ao carrinho!");
+    },
+    [setCartProducts]
+  );
 
   const value = {
     cartTotalQty,

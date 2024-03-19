@@ -161,7 +161,9 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
             <div className="max-w-[300px]">
               <Button
                 label="Adicionar ao carrinho"
-                onClick={() => handleAddProductToCart(cartProduct)}
+                onClick={() => {
+                  handleAddProductToCart(cartProduct);
+                }}
               />
             </div>
           </>
