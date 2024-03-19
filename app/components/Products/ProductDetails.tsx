@@ -4,6 +4,7 @@ import { Rating } from "@mui/material";
 import { useCallback, useState } from "react";
 import SetColor from "./SetColor";
 import SetQuantity from "./SetQuantity";
+import Button from "./Button";
 
 interface ProductDetailsProps {
   product: any;
@@ -111,7 +112,9 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
           handleQuantityDecrease={handleQuantityDecrease}
         />
         <Horizontal />
-        <div>adicionar ao carrinho</div>
+        <div className="max-w-[300px]">
+          <Button label="Adicionar ao carrinho" onClick={() => {}} />
+        </div>
       </div>
     </div>
   );
