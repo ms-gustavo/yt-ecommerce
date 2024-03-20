@@ -1,11 +1,11 @@
 import NextAuth from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
-import CredentialsProvider from "next-auth/providers/google";
+import CredentialsProvider from "next-auth/providers/credentials";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import prisma from "@/libs/prismadb";
 import bcrypt from "bcrypt";
 
-export const { handlers, auth, signIn, signOut } = NextAuth({
+export default NextAuth({
   adapter: PrismaAdapter(prisma),
   providers: [
     GoogleProvider({
@@ -15,18 +15,12 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
     CredentialsProvider({
       name: "credentials",
       credentials: {
-        email: {
-          label: "email",
-          type: "text",
-        },
-        password: {
-          label: "password",
-          type: "password",
-        },
+        email: { label: "email", type: "text" },
+        password: { label: "password", type: "password" },
       },
-      async authorize(credentials) {
-        if (!credentials?.email || credentials?.password) {
-          throw new Error("Email ou senha inválidos.");
+      authorize: async (credentials) => {
+        if (!credentials?.email || !credentials?.password) {
+          throw new Error("Email or password is missing.");
         }
 
         const user = await prisma.user.findUnique({
@@ -35,8 +29,8 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
           },
         });
 
-        if (!user || !user?.hashedPassword) {
-          throw new Error("Email ou senha inválidos.");
+        if (!user || !user.hashedPassword) {
+          throw new Error("Invalid email or password.");
         }
 
         const isCorrectPassword = await bcrypt.compare(
@@ -45,7 +39,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         );
 
         if (!isCorrectPassword) {
-          throw new Error("Email ou senha inválidos.");
+          throw new Error("Invalid email or password.");
         }
 
         return user;

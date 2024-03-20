@@ -39,11 +39,6 @@ export const CartContextProvider = (props: Props) => {
     setCartProducts(cProducts);
   }, []);
 
-  console.group("Use Cart");
-  console.log("qty", cartTotalQty);
-  console.log("total", cartTotalAmount);
-  console.groupEnd();
-
   useEffect(() => {
     const getTotals = () => {
       if (cartProducts) {
