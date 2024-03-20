@@ -6,6 +6,7 @@ import Input from "../components/Inputs/Input";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import Button from "../components/Button";
 import Link from "next/link";
+import { AiOutlineGoogle } from "react-icons/ai";
 
 const RegisterForm = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -31,6 +32,12 @@ const RegisterForm = () => {
   return (
     <>
       <Heading title="Crie sua conta" />
+      <Button
+        outline
+        label="Cadastre-se com sua conta Google"
+        icon={AiOutlineGoogle}
+        onClick={() => {}}
+      />
       <hr className="bg-slate-300 w-full h-px" />
       <Input
         id="name"
