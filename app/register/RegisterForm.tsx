@@ -81,9 +81,11 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ currentUser }) => {
       <Heading title="Crie sua conta" />
       <Button
         outline
-        label="Cadastre-se com sua conta Google"
+        label="Continue com sua conta Google"
         icon={AiOutlineGoogle}
-        onClick={() => {}}
+        onClick={() => {
+          signIn("google");
+        }}
       />
       <hr className="bg-slate-300 w-full h-px" />
       <Input
