@@ -7,10 +7,20 @@ import CustomCheckbox from "@/app/components/Inputs/CustomCheckbox";
 import Input from "@/app/components/Inputs/Input";
 import SelectColor from "@/app/components/Inputs/SelectColor";
 import TextArea from "@/app/components/Inputs/TextArea";
+import firebaseApp from "@/libs/firebase";
 import { categories } from "@/utils/Categories";
 import { colors } from "@/utils/Colors";
 import { useCallback, useEffect, useState } from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
+import toast from "react-hot-toast";
+import {
+  getDownloadURL,
+  getStorage,
+  ref,
+  uploadBytesResumable,
+} from "firebase/storage";
+import axios from "axios";
+import { useRouter } from "next/navigation";
 
 export type ImageType = {
   color: string;
@@ -28,6 +38,7 @@ const AddProductForm = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [images, setImages] = useState<ImageType[] | null>();
   const [isProductCreated, setIsProductCreated] = useState(false);
+  const router = useRouter();
 
   const {
     register,
@@ -62,6 +73,93 @@ const AddProductForm = () => {
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     console.log("data >>>", data);
+    setIsLoading(true);
+    let uploadedImages: UploadedImageType[] = [];
+    if (!data.category) {
+      setIsLoading(false);
+      return toast.error(`Selecione uma categoria`);
+    }
+    if (!data.images || data.images.length === 0) {
+      setIsLoading(false);
+      return toast.error(`Selecione uma imagem`);
+    }
+    //uplods images to fb
+    const handleImageUploads = async () => {
+      toast("Criando produto. Por favor, aguarde...");
+      try {
+        for (const item of data.images) {
+          if (item.image) {
+            const fileName =
+              new Date().getTime() + "-" + item.image.name.replace(/\s+/g, "_");
+            const storage = getStorage(firebaseApp);
+            const storageRef = ref(storage, `products/${fileName}`);
+            const uploadTask = uploadBytesResumable(storageRef, item.image);
+
+            await new Promise<void>((resolve, reject) => {
+              uploadTask.on(
+                "state_changed",
+                (snapshot) => {
+                  const progress =
+                    (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                  console.log(`Upload is ${progress}% done`);
+                  switch (snapshot.state) {
+                    case "paused":
+                      console.log("Upload is paused");
+
+                      break;
+                    case "running":
+                      console.log("Upload is running");
+                      break;
+                  }
+                },
+                (error) => {
+                  console.log("Error uploading image: " + error);
+                  reject(error);
+                },
+                () => {
+                  getDownloadURL(uploadTask.snapshot.ref)
+                    .then((downloadURL) => {
+                      uploadedImages.push({
+                        ...item,
+                        image: downloadURL,
+                      });
+                      console.log("File available at", downloadURL);
+                      resolve();
+                    })
+                    .catch((error) => {
+                      console.log("Error getting the download URL", error);
+                      reject(error);
+                    });
+                }
+              );
+            });
+          }
+        }
+      } catch (error) {
+        setIsLoading(false);
+        console.log("Error handling image uploads", error);
+        return toast.error("Ocorreu um erro ao fazer o upload da imagem.");
+      }
+    };
+
+    await handleImageUploads();
+    const productData = { ...data, images: uploadedImages };
+    //save products to mongodb
+
+    axios
+      .post("/api/product", productData)
+      .then(() => {
+        toast.success("Produto criado com sucesso");
+        setIsProductCreated(true);
+        router.refresh();
+      })
+      .catch((error) => {
+        console.log("Axios error", error);
+        toast.error("Algo de errado aconteceu.");
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
   };
 
   const category = watch("category");
