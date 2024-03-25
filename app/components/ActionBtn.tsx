@@ -3,7 +3,7 @@ import { IconType } from "react-icons";
 
 interface ActionBtnProps {
   icon: IconType;
-  title: string;
+  title?: string;
   onClick: (event: React.MouseEvent<HTMLButtonElement>) => void;
   disabled?: boolean;
 }
