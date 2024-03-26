@@ -7,6 +7,7 @@ import { Order } from "@prisma/client";
 import moment from "moment";
 import { useRouter } from "next/navigation";
 import { MdAccessTimeFilled, MdDeliveryDining, MdDone } from "react-icons/md";
+import OrderItem from "./OrderItem";
 
 interface OrderDetailsProps {
   order: Order;
@@ -83,6 +84,9 @@ const OrderDetails: React.FC<OrderDetailsProps> = ({ order }) => {
           <div className=" justify-self-center">QUANTIDADE</div>
           <div className=" justify-self-end">TOTAL</div>
         </div>
+        {order.products && order.products.map((item) => {
+         return <OrderItem key={item.id} item={item}></OrderItem>
+        })}
       </div>
     </div>
   );
