@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import Container from "./components/Container";
 import HomeBanner from "./components/HomeBanner";
 import NullData from "./components/NullData";
@@ -10,12 +11,6 @@ interface HomeProps {
 
 export default async function Home({ searchParams }: HomeProps) {
   const products = await getProducts(searchParams);
-
-  if (products.length === 0) {
-    return (
-      <NullData title='Oops! Não foram achados produtos. Clique em "Todos" para limpar o filtro' />
-    );
-  }
 
   function shuffleArray(array: any) {
     for (let i = array.length - 1; i > 0; i--) {
@@ -34,6 +29,15 @@ export default async function Home({ searchParams }: HomeProps) {
         <div>
           <HomeBanner />
         </div>
+        {products.length === 0 && (
+          <NullData
+            title={
+              Object.keys(searchParams).length === 0
+                ? "Oops! Ainda não foram cadastrados produtos."
+                : 'Oops! Não foram achados produtos. Clique em "Todos" para limpar o filtro'
+            }
+          />
+        )}
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-8">
           {shuffledProcuts.map((product: any) => {
             return <ProductCard key={product.id} data={product} />;
