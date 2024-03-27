@@ -4,6 +4,7 @@ import Avatar from "@/app/components/Avatar";
 import Heading from "@/app/components/Heading";
 import { Rating } from "@mui/material";
 import moment from "moment";
+import "moment/locale/pt-br";
 
 interface ListRatingProps {
   product: any;
