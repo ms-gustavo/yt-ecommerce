@@ -10,7 +10,7 @@ const firebaseConfig = {
   projectId: process.env.FIREBASE_PROJECT_ID,
   messagingSenderId: process.env.FIREBASE_MESSAGING_SENDER_ID,
   appId: process.env.APP_ID,
-  storageBucket: "brilhemais-d5dea.appspot.com",
+  storageBucket: "e-shop-tuto-686f5.appspot.com",
 };
 
 // Initialize Firebase

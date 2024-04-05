@@ -9,8 +9,8 @@ import { Toaster } from "react-hot-toast";
 const poppins = Poppins({ subsets: ["latin"], weight: ["400", "700"] });
 
 export const metadata: Metadata = {
-  title: "Brilhe Mais",
-  description: "Brilhe Mais",
+  title: "YT E-Commerce",
+  description: "YT E-Commerce app",
 };
 
 export default async function RootLayout({
@@ -20,7 +20,7 @@ export default async function RootLayout({
 }) {
   return (
     <html lang="pt-br">
-      <body className={`${poppins.className} text-slate-700 bg-beige`}>
+      <body className={`${poppins.className} text-slate-700`}>
         <Toaster
           toastOptions={{
             style: {

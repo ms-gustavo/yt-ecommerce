@@ -1,25 +1,32 @@
 import { AiFillPhone, AiOutlineDesktop, AiOutlineLaptop } from "react-icons/ai";
 import { MdOutlineKeyboard, MdStorefront, MdTv, MdWatch } from "react-icons/md";
-
 export const categories = [
   {
     label: "Todos",
     icon: MdStorefront,
   },
   {
-    label: "Semi jóias",
+    label: "Celulares",
     icon: AiFillPhone,
   },
   {
-    label: "Folheados",
+    label: "Laptops",
     icon: AiOutlineLaptop,
   },
   {
-    label: "Pratas 925",
+    label: "Desktops",
     icon: AiOutlineDesktop,
   },
   {
-    label: "Combos",
+    label: "Relógios",
     icon: MdWatch,
+  },
+  {
+    label: "TVs",
+    icon: MdTv,
+  },
+  {
+    label: "Acessórios",
+    icon: MdOutlineKeyboard,
   },
 ];

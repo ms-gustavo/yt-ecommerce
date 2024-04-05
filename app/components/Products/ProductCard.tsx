@@ -25,7 +25,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ data }) => {
   return (
     <div
       onClick={() => router.push(`/product/${data.id}`)}
-      className="col-span-1 cursor-pointer border-[1.2px] border-brown bg-beige rounded-md p-2 transition hover:scale-105 text-center text-sm"
+      className="col-span-1 cursor-pointer border-[1.2px] border-slate-200 bg-slate-50 rounded-sm p-2 transition hover:scale-105 text-center text-sm"
     >
       <div className="flex flex-col items-center w-full gap-1">
         <div className="aspect-square overflow-hidden relative w-full">
@@ -36,8 +36,13 @@ const ProductCard: React.FC<ProductCardProps> = ({ data }) => {
             className="w-full h-full object-contain"
           />
         </div>
-        <div className="mt-4 text-brown font-bold">
-          {truncateText(data.name)}
+        <div className="mt-4">{truncateText(data.name)}</div>
+        <div>
+          <Rating value={productRating} readOnly />
+        </div>
+        <div>
+          {data.reviews.length}{" "}
+          {data.reviews.length == 1 ? "análise" : "análises"}
         </div>
         <div className=" text-lightBrown font-semibold">
           {formatPrice(data.price)}
