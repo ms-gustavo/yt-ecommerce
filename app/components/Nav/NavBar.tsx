@@ -36,9 +36,7 @@ const NavBar = async () => {
           </div>
         </Container>
       </div>
-      <Suspense>
-        <Categories />
-      </Suspense>
+      <Categories />
     </div>
   );
 };
