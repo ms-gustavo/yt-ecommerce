@@ -41,11 +41,14 @@
         <li>Stripe</li>
         <li>Firebase</li>
     </ul>
+    <p>Para ver a lista completa de dependências, consulte o arquivo <code>package.json</code>.</p>
           <h2>Bugs Conhecidos</h2>
     <ul>
         <li>Problemas na autenticação via Google</li>
         <li>Responsividade em botão de adicionar/diminuir quantidade de produtos quando em telas pequenas</li>
     </ul>
-    <p>Para ver a lista completa de dependências, consulte o arquivo <code>package.json</code>.</p>
+            <h2>Hospedagem</h2>
+    <p>O projeto está hospedado na Vercel. Você pode acessá-lo através do link:</p>
+    <a href="https://yt-ecommerce.vercel.app/">Yt-E-commerce</a>
     <h2>Contribuição</h2>
     <p>Contribuições são bem-vindas! Sinta-se à vontade para enviar problemas ou solicitações de pull para quaisquer melhorias ou correções de bugs.</p>
