@@ -7,27 +7,19 @@ export const categories = [
     icon: MdStorefront,
   },
   {
-    label: "Celulares",
+    label: "Semi jóias",
     icon: AiFillPhone,
   },
   {
-    label: "Laptops",
+    label: "Folheados",
     icon: AiOutlineLaptop,
   },
   {
-    label: "Desktops",
+    label: "Pratas 925",
     icon: AiOutlineDesktop,
   },
   {
-    label: "Relógios",
+    label: "Combos",
     icon: MdWatch,
-  },
-  {
-    label: "TVs",
-    icon: MdTv,
-  },
-  {
-    label: "Acessórios",
-    icon: MdOutlineKeyboard,
   },
 ];

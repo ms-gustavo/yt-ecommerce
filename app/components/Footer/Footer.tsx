@@ -10,7 +10,7 @@ import {
 
 const Footer = () => {
   return (
-    <footer className="bg-slate-700 text-slate-200 text-sm mt-16">
+    <footer className="bg-brown text-beige text-sm mt-16">
       <Container>
         <div className="flex flex-col md:flex-row justify-between pt-16 pb-8">
           <FooterList>
@@ -44,20 +44,12 @@ const Footer = () => {
           <FooterList>
             <h3 className="text-base font-bold mb-2">Siga nas redes sociais</h3>
             <div className="flex gap-2">
-              <Link href="#">
-                <MdFacebook size={24} />
-              </Link>
-              <Link href="#">
-                {" "}
-                <AiFillTwitterCircle size={24} />
-              </Link>
-              <Link href="#">
+              <Link
+                href="https://www.instagram.com/brilhemais.oficial"
+                target="_blank"
+              >
                 {" "}
                 <AiFillInstagram size={24} />
-              </Link>
-              <Link href="#">
-                {" "}
-                <AiFillYoutube size={24} />
               </Link>
             </div>
           </FooterList>
